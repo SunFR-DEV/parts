@@ -65,6 +65,40 @@ const htmls = {
         ,
         logo: 'https://sundev.studio/projects/ecto.png'
     },
+    'mk': {
+        elems: [
+            {
+                type: 'h1',
+                content: 'Site en cours de développement',
+                class: 'title'
+            },
+            {
+                type: 'p',
+                content: 'Le site de votre serveur favori est en cours de développement, il sera bientôt disponible.',
+                class: 'description'
+            },
+            {
+                type: 'p',
+                content: 'Merci d\'être venu! Tenez vous au courant pour les mises à jour.',
+                class: 'description'
+            },
+            {
+                type: 'a',
+                content: 'Sundev',
+                href: 'https://sundev.studio',
+                class: 'btn btn-sundev'
+            }
+        ],
+        colors:
+            {
+                'primary-color': 'oklch(0.5774 0.2091 273.85)',
+                'secondary-color': 'oklch(0.59 0.058 283.297)',
+                'background-color': 'oklch(0.3211 0.0093 268.38)',
+                'text-color': 'oklch(0.949 0.023 273.85)'
+            }
+        ,
+        logo: 'https://sundev.studio/projects/ecto.png'
+    },
     default: {
         elems: [
             {
@@ -122,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const domain = window.location.hostname;
     const subdomain = domain.split('.')[0];
 
-    const subs = ['victoria', 'ecto'];
+    const subs = ['victoria', 'ecto', 'mk'];
     if (!subs.includes(subdomain) || !htmls[subdomain]) {
         applyDOM(main, htmls.default);
     }
