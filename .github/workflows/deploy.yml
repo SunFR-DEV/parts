@@ -1,0 +1,44 @@
+name: Deploy SunDev Pages
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Copy files to VPS temp folder
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          source: "assets,pages"
+          target: "/tmp/sundev_deploy"
+
+      - name: Move files to Nginx and set permissions
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            sudo mkdir -p /var/www/html/errors
+            sudo mkdir -p /var/www/html/sundev/assets
+
+            sudo cp /tmp/sundev_deploy/pages/unavailable.html /var/www/html/errors/sundev.studio.html
+
+            sudo cp /tmp/sundev_deploy/pages/dev.html /var/www/html/sundev/dev_page.html
+
+            sudo cp -r /tmp/sundev_deploy/assets/* /var/www/html/sundev/assets/
+
+            sudo chown -R www-data:www-data /var/www/html/errors /var/www/html/sundev
+            sudo chmod -R 755 /var/www/html/errors /var/www/html/sundev
+
+            # 6. Clean up the temp folder
+            rm -rf /tmp/sundev_deploy
