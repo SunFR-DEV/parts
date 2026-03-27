@@ -1,2 +1,2 @@
 # parts
-Some random parts of our projects such as unavailable pages, etc..
+Quelques parties de notre infrastructure comme nos pages d'erreurs et de développement en cours. Ne faites pas attention!
