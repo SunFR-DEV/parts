@@ -29,7 +29,11 @@ const htmls = {
             'background-color': 'oklch(0.249 0.005 67.61)',
             'text-color': 'oklch(0.957 0.007 5.92)'
         },
-        logo: 'https://sundev.studio/projects/victoria.png'
+        logo: 'https://sundev.studio/projects/victoria.jpg',
+        logoProps: {
+            ratio: 'square',
+            borderRadius: '50%'
+        }
     },
     'ecto': {
         elems: [
@@ -63,7 +67,11 @@ const htmls = {
                 'text-color': 'oklch(0.949 0.023 310.706)'
             }
         ,
-        logo: 'https://sundev.studio/projects/ecto.png'
+        logo: 'https://sundev.studio/projects/ecto.jpg',
+        logoProps: {
+            ratio: 'square',
+            borderRadius: '50%'
+        }
     },
     'mk': {
         elems: [
@@ -97,7 +105,11 @@ const htmls = {
                 'text-color': 'oklch(0.949 0.023 273.85)'
             }
         ,
-        logo: 'https://sundev.studio/projects/ecto.png'
+        logo: 'https://sundev.studio/projects/mk.png',
+        logoProps: {
+            ratio: 'screen',
+            borderRadius: '0'
+        }
     },
     default: {
         elems: [
@@ -132,6 +144,18 @@ function applyDOM(main, content) {
         logo.src = content.logo;
         logo.alt = 'Logo';
         logo.className = 'logo';
+        if (content.logoProps) {
+            if (content.logoProps.ratio === 'square') {
+                logo.style.width = '150px';
+                logo.style.height = '150px';
+            } else {
+                logo.style.width = '80dvw';
+                logo.style.height = 'auto';
+            }
+            if (content.logoProps.borderRadius) {
+                logo.style.borderRadius = content.logoProps.borderRadius;
+            }
+        }
         main.appendChild(logo);
     }
 
